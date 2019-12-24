@@ -37,6 +37,8 @@ class EmailLogController extends Controller
         $searchModel = new EmailLogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $dataProvider->sort = ['defaultOrder' => ['created_at' => 'DESC']];
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -100,6 +102,23 @@ class EmailLogController extends Controller
     {
         $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes logs before entered date.
+     * @return mixed
+     */
+    public function actionDeleteByDate()
+    {
+        $request = Yii::$app->request;
+        $date = strtotime($request->post('EmailLog')['deleteDate']);
+        $deleteByDate = EmailLog::deleteAll(['<', 'created_at', $date]);
+
+        if (!$deleteByDate) {
+            Yii::error('Could not delete logs');
+            return $this->redirect(['index']);
+        }
         return $this->redirect(['index']);
     }
 

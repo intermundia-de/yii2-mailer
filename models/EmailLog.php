@@ -25,6 +25,7 @@ class EmailLog extends \yii\db\ActiveRecord
     const STATUS_SENT = 'sent';
     const STATUS_FAILED = 'failed';
 
+    public $deleteDate;
 
     /**
      * {@inheritdoc}
@@ -42,6 +43,7 @@ class EmailLog extends \yii\db\ActiveRecord
         return [
             [['message', 'error_message', 'trace'], 'string'],
             [['created_at'], 'integer'],
+            [['deleteDate'], 'string'],
             [['subject'], 'string', 'max' => 2048],
             [['to', 'from', 'cc', 'bcc'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 32],

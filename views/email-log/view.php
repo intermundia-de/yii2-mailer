@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'subject',
             'message:ntext',
             'status',
-            'created_at',
+            'created_at:date',
             'error_message:ntext',
             'trace:ntext',
         ],
