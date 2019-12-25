@@ -39,9 +39,11 @@ class EmailLogController extends Controller
 
         $dataProvider->sort = ['defaultOrder' => ['created_at' => 'DESC']];
 
+        $model = new EmailLog();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
     }
 
