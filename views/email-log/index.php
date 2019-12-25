@@ -43,13 +43,7 @@ $model->deleteDate = date("m/d/Y");
             </div>
 
             <div class="date-form-delete">
-                <?php echo Html::a(Yii::t('common', 'Delete'), ['delete-by-date', 'date' => $model->deleteDate], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => Yii::t('common', 'Are you sure you want to delete logs?'),
-                        'method' => 'post',
-                    ],
-                ]) ?>
+                <?= Html::submitButton('Delete', ['class' => 'btn btn-danger']) ?>
             </div>
         </div>
         <?php ActiveForm::end() ?>
