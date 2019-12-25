@@ -1,0 +1,23 @@
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header-create {
+    padding-top: 25px;
+}
+
+.header-date-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.date-form {
+    margin-right: 5px;
+}
+
+.date-form-delete {
+    padding-top: 25px;
+}

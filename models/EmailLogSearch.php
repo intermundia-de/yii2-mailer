@@ -18,7 +18,8 @@ class EmailLogSearch extends EmailLog
     public function rules()
     {
         return [
-            [['id', 'created_at'], 'integer'],
+            [['id'], 'integer'],
+            [['created_at'], 'string'],
             [['to', 'from', 'cc', 'bcc', 'message', 'subject', 'status', 'error_message', 'trace'], 'safe'],
         ];
     }
@@ -53,7 +54,7 @@ class EmailLogSearch extends EmailLog
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'created_at' => $this->created_at,
+            'created_at' => strtotime($this->created_at),
         ]);
 
         $query->andFilterWhere(['like', 'to', $this->to])

@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use intermundia\mailer\assets\MailerAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel intermundia\mailer\models\EmailLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->registerAssetBundle(MailerAsset::class);
 
 $this->title = Yii::t('common', 'Email Logs');
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,33 +18,41 @@ $model->deleteDate = date("m/d/Y");
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?php echo Html::a(Yii::t('common', 'Create {modelClass}', [
-            'modelClass' => 'Email Log',
-        ]), ['create'], ['class' => 'btn btn-success']) ?>
+    <div class="header">
+        <div class="header-create">
+            <?php echo Html::a(Yii::t('common', 'Create {modelClass}', [
+                'modelClass' => 'Email Log',
+            ]), ['create'], ['class' => 'btn btn-success']) ?>
 
-        <?php $form = ActiveForm::begin([
-            'action' => ['delete-by-date'],
-            'options' => [
-                'enctype' => 'multipart/form-data'
-            ]
-        ]); ?>
-        <?php echo $form->field($model, 'deleteDate')->widget(
-            \dosamigos\datepicker\DatePicker::class,
+        </div>
+
+        <div class="header-date-form">
+            <div class="date-form">
+                <?php $form = ActiveForm::begin([
+                    'action' => ['delete-by-date'],
+                    'options' => [
+                        'enctype' => 'multipart/form-data',
+                        'style' => 'display: flex;'
+                    ]
+                ]); ?>
+                <?php echo $form->field($model, 'deleteDate')->widget(
+                    \dosamigos\datepicker\DatePicker::class,
         );
-        ?>
+                ?>
+            </div>
 
-        <?php echo Html::a(Yii::t('common', 'Delete'), ['delete-by-date', 'date' => $model->deleteDate], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('common', 'Are you sure you want to delete logs?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+            <div class="date-form-delete">
+                <?php echo Html::a(Yii::t('common', 'Delete'), ['delete-by-date', 'date' => $model->deleteDate], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('common', 'Are you sure you want to delete logs?'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </div>
+        </div>
         <?php ActiveForm::end() ?>
-    </p>
-
-    <?php ?>
+    </div>
 
     <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
