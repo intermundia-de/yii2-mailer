@@ -37,8 +37,7 @@ $model->deleteDate = date("m/d/Y");
                     ]
                 ]); ?>
                 <?php echo $form->field($model, 'deleteDate')->widget(
-                    \dosamigos\datepicker\DatePicker::class,
-        );
+                    \dosamigos\datepicker\DatePicker::class);
                 ?>
             </div>
 
