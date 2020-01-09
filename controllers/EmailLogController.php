@@ -54,45 +54,12 @@ class EmailLogController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
-    /**
-     * Creates a new EmailLog model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new EmailLog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Updates an existing EmailLog model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Deletes an existing EmailLog model.
@@ -116,11 +83,9 @@ class EmailLogController extends Controller
         $request = Yii::$app->request;
         $date = strtotime($request->post('EmailLog')['deleteDate']);
         $deleteByDate = EmailLog::deleteAll(['<', 'created_at', $date]);
-
-        if (!$deleteByDate) {
-            Yii::error('Could not delete logs');
-            return $this->redirect(['index']);
-        }
+        Yii::$app->session->set('mailer-success',
+            Yii::t('yii2-mailer',"Removed {items} item(s)", ['items' => $deleteByDate])
+        );
         return $this->redirect(['index']);
     }
 

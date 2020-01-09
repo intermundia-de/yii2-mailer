@@ -12,21 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="email-log-view">
 
-    <p>
-        <?php echo Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php echo Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('common', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?php echo DetailView::widget([
+   <?php echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'to',
             'from',
             'cc',
@@ -34,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'subject',
             'message:ntext',
             'status',
-            'created_at:date',
+            'created_at:datetime',
             'error_message:ntext',
             'trace:ntext',
         ],

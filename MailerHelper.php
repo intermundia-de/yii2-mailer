@@ -15,16 +15,8 @@ class MailerHelper
      */
     public static function deleteLog($days)
     {
-        $from = strtotime("-$days days");
-        $to = time();
-
-        $deleteLog = EmailLog::deleteAll(['AND', ['<=', 'created_at', $to], ['>=', 'created_at', $from]]);
-
-        if (!$deleteLog) {
-            Console::output('Error while deleting');
-        } else {
-            Console::output('Successfully deleted');
-        }
+        $deleteLog = EmailLog::deleteAll(['<', 'created_at', strtotime("-$days days")]);
+        Console::output(\Yii::t('yii2-mailer',"Successfully deleted {number} records",['number' => $deleteLog]));
     }
 
 }

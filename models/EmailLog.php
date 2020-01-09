@@ -56,25 +56,25 @@ class EmailLog extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'to' => Yii::t('app', 'To'),
-            'from' => Yii::t('app', 'From'),
-            'cc' => Yii::t('app', 'Cc'),
-            'bcc' => Yii::t('app', 'Bcc'),
-            'message' => Yii::t('app', 'Message'),
-            'status' => Yii::t('app', 'Status'),
-            'subject' => Yii::t('app', 'Subject'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'error_message' => Yii::t('app', 'Error Message'),
-            'trace' => Yii::t('app', 'Trace'),
+            'id' => Yii::t('yii2-mailer', 'ID'),
+            'to' => Yii::t('yii2-mailer', 'To'),
+            'from' => Yii::t('yii2-mailer', 'From'),
+            'cc' => Yii::t('yii2-mailer', 'Cc'),
+            'bcc' => Yii::t('yii2-mailer', 'Bcc'),
+            'message' => Yii::t('yii2-mailer', 'Message'),
+            'status' => Yii::t('yii2-mailer', 'Status'),
+            'subject' => Yii::t('yii2-mailer', 'Subject'),
+            'created_at' => Yii::t('yii2-mailer', 'Created At'),
+            'error_message' => Yii::t('yii2-mailer', 'Error Message'),
+            'trace' => Yii::t('yii2-mailer', 'Trace'),
         ];
     }
 
     public static function statuses()
     {
         return [
-            self::STATUS_SENT => Yii::t('common', 'Sent'),
-            self::STATUS_FAILED => Yii::t('common', 'Failed')
+            self::STATUS_SENT => Yii::t('yii2-mailer', 'Sent'),
+            self::STATUS_FAILED => Yii::t('yii2-mailer', 'Failed')
         ];
     }
 }

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use intermundia\mailer\assets\MailerAsset;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel intermundia\mailer\models\EmailLogSearch */
@@ -14,19 +15,18 @@ $this->registerAssetBundle(MailerAsset::class);
 $this->title = Yii::t('common', 'Email Logs');
 $this->params['breadcrumbs'][] = $this->title;
 $model->deleteDate = date("m/d/Y");
+$success = Yii::$app->session->get('mailer-success');
 ?>
 <div class="email-log-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <div class="header">
-        <div class="header-create">
-            <?php echo Html::a(Yii::t('common', 'Create {modelClass}', [
-                'modelClass' => 'Email Log',
-            ]), ['create'], ['class' => 'btn btn-success']) ?>
-
+    <?php if ($success): ?>
+        <div class="alert alert-success  alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <?php echo $success; ?>
+            <?php Yii::$app->session->remove('mailer-success'); ?>
         </div>
-
+    <?php endif; ?>
+    <div class="header">
         <div class="header-date-form">
             <div class="date-form">
                 <?php $form = ActiveForm::begin([
@@ -53,8 +53,6 @@ $model->deleteDate = date("m/d/Y");
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'to',
             'from',
             'cc',
@@ -62,12 +60,52 @@ $model->deleteDate = date("m/d/Y");
             'subject',
             // 'message:ntext',
             // 'status',
-            'created_at:date',
+            'created_at:datetime',
             // 'error_message:ntext',
             // 'trace:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                            ['view', 'id' => $key, 'ajax' => true],
+                            [
+                                'class' => 'view-modal-click grid-action',
+                                'title' => Yii::t('yii2-mailer', 'View')
+                            ]
+                        );
+                    }
+                ]
+            ],
         ],
     ]); ?>
 
 </div>
+
+
+<?php
+    $view = Yii::t('yii2-mailer', 'View');
+    Modal::begin([
+        'header' => "<h4>$view</h4>",
+        'id' => 'view-modal',
+        'size' => 'modal-lg'
+    ]);
+
+    echo "<div id='viewModalContent'></div>";
+
+    Modal::end();
+
+    $this->registerJs("
+        $(function () {
+            $('.view-modal-click').click(function (ev) {
+                ev.preventDefault();
+                $('#view-modal')
+                    .modal('show')
+                    .find('#viewModalContent')
+                    .load($(this).attr('href'));
+            });
+        });
+    ");
+?>
