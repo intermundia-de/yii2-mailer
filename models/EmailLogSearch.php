@@ -54,16 +54,18 @@ class EmailLogSearch extends EmailLog
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'created_at' => strtotime($this->created_at),
+            'created_at' => $this->created_at ? strtotime($this->created_at) : null,
         ]);
 
+        if($this->status) {
+            $query->andWhere(['status' => $this->status]);
+        }
         $query->andFilterWhere(['like', 'to', $this->to])
             ->andFilterWhere(['like', 'from', $this->from])
             ->andFilterWhere(['like', 'cc', $this->cc])
             ->andFilterWhere(['like', 'bcc', $this->bcc])
             ->andFilterWhere(['like', 'subject', $this->subject])
             ->andFilterWhere(['like', 'message', $this->message])
-            ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'error_message', $this->error_message])
             ->andFilterWhere(['like', 'trace', $this->trace]);
 

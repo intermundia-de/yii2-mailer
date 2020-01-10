@@ -53,6 +53,17 @@ $success = Yii::$app->session->get('mailer-success');
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            [
+                'format' => 'raw',
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    if ($model->status === \intermundia\mailer\models\EmailLog::STATUS_SENT) {
+                        return "<span class='glyphicon glyphicon-ok text-success'></span>";
+                    }
+                    return "<span class='glyphicon glyphicon-remove text-danger'></span>";
+                },
+                'filter' => \intermundia\mailer\models\EmailLog::statuses()
+            ],
             'to',
             'from',
             'cc',
@@ -86,18 +97,18 @@ $success = Yii::$app->session->get('mailer-success');
 
 
 <?php
-    $view = Yii::t('yii2-mailer', 'View');
-    Modal::begin([
-        'header' => "<h4>$view</h4>",
-        'id' => 'view-modal',
-        'size' => 'modal-lg'
-    ]);
+$view = Yii::t('yii2-mailer', 'View');
+Modal::begin([
+    'header' => "<h4>$view</h4>",
+    'id' => 'view-modal',
+    'size' => 'modal-lg'
+]);
 
-    echo "<div id='viewModalContent'></div>";
+echo "<div id='viewModalContent'></div>";
 
-    Modal::end();
+Modal::end();
 
-    $this->registerJs("
+$this->registerJs("
         $(function () {
             $('.view-modal-click').click(function (ev) {
                 ev.preventDefault();
