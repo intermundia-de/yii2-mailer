@@ -41,6 +41,7 @@ trait MailerTrait
             $emailLog->status = $res ? EmailLog::STATUS_SENT : EmailLog::STATUS_FAILED;
             $emailLog->message = $message->toString();
             $emailLog->created_at = time();
+            $emailLog->ip_address = preg_replace('/(\d+\.\d+\.\d\.)\d+/', '$1*', Yii::$app->request->getUserIP());
             if ($errorMessage) {
                 $emailLog->error_message = $errorMessage;
                 $emailLog->trace = $trace;

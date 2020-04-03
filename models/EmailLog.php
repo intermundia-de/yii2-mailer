@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $subject
  * @property string|null $status
  * @property int|null $created_at
+ * @property string $ip_address
  * @property string|null $error_message
  * @property string|null $trace
  */
@@ -47,6 +48,7 @@ class EmailLog extends \yii\db\ActiveRecord
             [['subject'], 'string', 'max' => 2048],
             [['to', 'from', 'cc', 'bcc'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 32],
+            [['ip_address'], 'string', 'max' => 55],
         ];
     }
 
@@ -65,6 +67,7 @@ class EmailLog extends \yii\db\ActiveRecord
             'status' => Yii::t('yii2-mailer', 'Status'),
             'subject' => Yii::t('yii2-mailer', 'Subject'),
             'created_at' => Yii::t('yii2-mailer', 'Created At'),
+            'ip_address' => Yii::t('app', 'IP Address'),
             'error_message' => Yii::t('yii2-mailer', 'Error Message'),
             'trace' => Yii::t('yii2-mailer', 'Trace'),
         ];
