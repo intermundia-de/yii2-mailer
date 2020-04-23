@@ -1,5 +1,5 @@
 
-.header {
+.mailer-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -9,15 +9,15 @@
     padding-top: 25px;
 }
 
-.header-date-form {
+.mailer-header-date-form {
     display: flex;
     flex-direction: row;
 }
 
-.date-form {
+.mailer-date-form {
     margin-right: 5px;
 }
 
-.date-form-delete {
+.mailer-date-form-delete {
     padding-top: 25px;
 }

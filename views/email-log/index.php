@@ -26,9 +26,9 @@ $success = Yii::$app->session->get('mailer-success');
             <?php Yii::$app->session->remove('mailer-success'); ?>
         </div>
     <?php endif; ?>
-    <div class="header">
-        <div class="header-date-form">
-            <div class="date-form">
+    <div class="mailer-header">
+        <div class="mailer-header-date-form">
+            <div class="mailer-date-form">
                 <?php $form = ActiveForm::begin([
                     'action' => ['delete-by-date'],
                     'options' => [
@@ -39,13 +39,13 @@ $success = Yii::$app->session->get('mailer-success');
                 <?php echo $form->field($model, 'deleteDate')->widget(
                     \dosamigos\datepicker\DatePicker::class);
                 ?>
-            </div>
 
-            <div class="date-form-delete">
-                <?= Html::submitButton('Delete', ['class' => 'btn btn-danger']) ?>
+                <div class="mailer-date-form-delete">
+                    <?= Html::submitButton('Delete', ['class' => 'btn btn-danger']) ?>
+                </div>
+                <?php ActiveForm::end() ?>
             </div>
         </div>
-        <?php ActiveForm::end() ?>
     </div>
 
     <?php echo GridView::widget([
